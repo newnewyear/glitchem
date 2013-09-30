@@ -2,24 +2,23 @@
 require 'vkapi.class.php';
 require 'config.php';
 
-if (!empty($_GET['code'])) { /* проверка валидности */
-	$code = htmlspecialchars($_GET['code']);/*обработка переменной геткод, */
-	$ch = curl_init();/* СОЗДАНИЕ ОБЪЕКТА КУРЛ*/
-	curl_setopt($ch, CURLOPT_URL, 'https://api.vk.com/oauth/token?client_id='.$api_id.'&redirect_uri='.$server_name.'test.php&code='.$code.'&client_secret='.$secret_key);
+if (!empty($_GET['code'])) {
+	$code = htmlspecialchars($_GET['code']);
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://api.vk.com/oauth/token?client_id='.$api_id.'&redirect_uri=http://mysite1/test.php&code='.$code.'&client_secret='.$secret_key);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0); 
-	$output = curl_exec($ch); /* результат от вк*/
-
-	$data = json_decode($output);/* перекодировка json в удобный для php вид*/
+	$output = curl_exec($ch);
+	$data = json_decode($output);
 
 	$VK = new vkapi($api_id, $secret_key);
 
 	$resp = $VK->api('friends.get', array('fields'=>'first_name, last_name, photo, photo_medium, photo_big', 'count'=>40, 'access_token'=>$data->access_token));
-
+	
 	if (!empty($resp['response'])) {
 		foreach ($resp['response'] as $value) {
-			echo '<img src="http://hitode909.appspot.com/glitch/api2?uri='.$value['photo_big'].'" title="'.$value['last_name'].' '.$value['first_name'].'" alt="" />';
+			echo '<img src="http://hitode909.appspot.com/glitch/api2?uri='.$value['photo_big'].'" alt="" />';
 		}
 	}
 	else {

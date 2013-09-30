@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -10,8 +11,8 @@
 <?php require 'config.php'; ?>
 
 
-<button class="glitch_them_button" onclick="location.href='http://api.vk.com/oauth/authorize?client_id=<?php echo $api_id; ?>&scope=friends,photos&redirect_uri=<?php echo $server_name; ?>test.php';">Glitch Em</button>
+<button class="glitch_them_button" onclick="location.href='http://api.vk.com/oauth/authorize?client_id=<?php echo $api_id; ?>&scope=friends,photos&redirect_uri=http://mysite1/test.php';">Glitch Em</button>
 
 
 </body>
-</html> 
+</html>
